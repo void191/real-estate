@@ -3,6 +3,8 @@ import { prisma } from '@/lib/prisma';
 import { authenticateRequest } from '@/lib/session';
 import { Role, ListingStatus } from '@prisma/client';
 
+export const dynamic = 'force-dynamic';
+
 export async function PATCH(req: NextRequest, { params }: { params: { id: string } }) {
   const { errorResponse } = await authenticateRequest(req, [Role.admin]);
   if (errorResponse) return errorResponse;

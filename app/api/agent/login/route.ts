@@ -3,6 +3,8 @@ import { prisma } from '@/lib/prisma';
 import { comparePassword, signToken, AUTH_COOKIE_NAME, getCookieOptions } from '@/lib/auth';
 import { Role } from '@prisma/client';
 
+export const dynamic = 'force-dynamic';
+
 export async function POST(req: NextRequest) {
   try {
     const body = await req.json();

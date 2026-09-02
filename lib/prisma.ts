@@ -7,6 +7,9 @@ const globalForPrisma = globalThis as unknown as {
 export const prisma =
   globalForPrisma.prisma ??
   new PrismaClient({
+    datasourceUrl:
+      process.env.DATABASE_URL ||
+      'postgresql://postgres:postgres@localhost:5432/viewing_coordinator?schema=public',
     log: process.env.NODE_ENV === 'development' ? ['error', 'warn'] : ['error'],
   });
 

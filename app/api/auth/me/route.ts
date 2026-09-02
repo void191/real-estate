@@ -1,6 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { authenticateRequest } from '@/lib/session';
 
+export const dynamic = 'force-dynamic';
+
 export async function GET(req: NextRequest) {
   const { user, errorResponse } = await authenticateRequest(req);
   if (errorResponse) {

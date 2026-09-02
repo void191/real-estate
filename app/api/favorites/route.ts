@@ -3,6 +3,8 @@ import { prisma } from '@/lib/prisma';
 import { authenticateRequest } from '@/lib/session';
 import { Role } from '@prisma/client';
 
+export const dynamic = 'force-dynamic';
+
 export async function GET(req: NextRequest) {
   const { user, errorResponse } = await authenticateRequest(req, [Role.buyer]);
   if (errorResponse) return errorResponse;

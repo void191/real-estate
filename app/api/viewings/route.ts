@@ -4,6 +4,8 @@ import { authenticateRequest } from '@/lib/session';
 import { Role, ViewingStatus } from '@prisma/client';
 import { broadcastViewingUpdate } from '@/lib/socket-server';
 
+export const dynamic = 'force-dynamic';
+
 export async function POST(req: NextRequest) {
   const { user, errorResponse } = await authenticateRequest(req, [Role.buyer]);
   if (errorResponse) return errorResponse;

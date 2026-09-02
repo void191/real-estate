@@ -5,6 +5,8 @@ import { Role, ViewingStatus } from '@prisma/client';
 import { broadcastViewingUpdate } from '@/lib/socket-server';
 import { isValidTransition, isUserAuthorizedForTransition } from '@/lib/lifecycle';
 
+export const dynamic = 'force-dynamic';
+
 export async function PATCH(req: NextRequest, { params }: { params: { id: string } }) {
   const { user, errorResponse } = await authenticateRequest(req, [Role.buyer, Role.admin]);
   if (errorResponse) return errorResponse;

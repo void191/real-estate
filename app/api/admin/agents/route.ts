@@ -4,6 +4,8 @@ import { authenticateRequest } from '@/lib/session';
 import { hashPassword } from '@/lib/auth';
 import { Role } from '@prisma/client';
 
+export const dynamic = 'force-dynamic';
+
 export async function GET(req: NextRequest) {
   const { errorResponse } = await authenticateRequest(req, [Role.admin]);
   if (errorResponse) return errorResponse;

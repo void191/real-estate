@@ -3,6 +3,8 @@ import { prisma } from '@/lib/prisma';
 import { authenticateRequest } from '@/lib/session';
 import { Role } from '@prisma/client';
 
+export const dynamic = 'force-dynamic';
+
 export async function DELETE(req: NextRequest, { params }: { params: { id: string } }) {
   const { user, errorResponse } = await authenticateRequest(req, [Role.buyer]);
   if (errorResponse) return errorResponse;

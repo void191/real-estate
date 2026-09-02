@@ -8,6 +8,8 @@ import { Heart, Bed, Bath, Maximize2, MapPin, Phone, Mail, ChevronLeft, Calendar
 import { useAuth } from '@/components/auth/AuthProvider';
 import { formatPropertyPrice } from '@/lib/currency';
 
+export const dynamic = 'force-dynamic';
+
 export default function ListingDetailPage() {
   const params = useParams();
   const router = useRouter();

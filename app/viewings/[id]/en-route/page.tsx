@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState, useRef } from 'react';
 import { useParams, useRouter } from 'next/navigation';
-import dynamic from 'next/dynamic';
+import nextDynamic from 'next/dynamic';
 import { BuyerNav } from '@/components/navigation/BuyerNav';
 import { useAuth } from '@/components/auth/AuthProvider';
 import { getSocketClient } from '@/lib/socket-client';
@@ -20,8 +20,10 @@ import {
 } from 'lucide-react';
 import { format } from 'date-fns';
 
+export const dynamic = 'force-dynamic';
+
 // Dynamically import Leaflet map with no SSR
-const LiveMap = dynamic(() => import('@/components/agent/AgentLiveMap'), {
+const LiveMap = nextDynamic(() => import('@/components/agent/AgentLiveMap'), {
   ssr: false,
   loading: () => (
     <div className="w-full h-64 bg-stone/20 rounded-xl flex items-center justify-center text-xs text-muted">
