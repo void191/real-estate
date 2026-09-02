@@ -1,0 +1,63 @@
+[
+  {
+    "id": "viewing-erbil-empire-enroute",
+    "property_title": "Empire World Royal Sky Penthouse",
+    "buyer_name": "Oliver Sterling",
+    "agent_name": "Alan Barzani",
+    "city": "Erbil",
+    "status": "en_route",
+    "live_gps": {
+      "current_latitude": 36.1995,
+      "current_longitude": 43.9895,
+      "destination_latitude": 36.2085,
+      "destination_longitude": 43.9854,
+      "distance_km": 1.15,
+      "eta_minutes": 4
+    },
+    "notes": "Buyer: On my way via Gulan Street from Sami Abdulrahman Park entrance."
+  },
+  {
+    "id": "viewing-erbil-dreamcity-enroute",
+    "property_title": "Dream City Executive Palace",
+    "buyer_name": "Sophia Montgomery",
+    "agent_name": "Layla Hawrami",
+    "city": "Erbil",
+    "status": "en_route",
+    "live_gps": {
+      "current_latitude": 36.2060,
+      "current_longitude": 43.9820,
+      "destination_latitude": 36.2152,
+      "destination_longitude": 43.9928,
+      "distance_km": 1.4,
+      "eta_minutes": 5
+    },
+    "notes": "Buyer: Leaving English Village gate now. Looking forward to viewing the private grounds."
+  },
+  {
+    "id": "viewing-erbil-english-requested",
+    "property_title": "English Village Diplomatic Residence",
+    "buyer_name": "Julian Thorne",
+    "agent_name": "Alan Barzani",
+    "city": "Erbil",
+    "status": "requested",
+    "notes": "Buyer inquiry: Please advise if private vehicle driveway can accommodate three diplomatic SUVs."
+  },
+  {
+    "id": "viewing-erbil-gulan-accepted",
+    "property_title": "Gulan Park Panoramic Residence",
+    "buyer_name": "Amara Chen",
+    "agent_name": "Alan Barzani",
+    "city": "Erbil",
+    "status": "accepted",
+    "notes": "Agent note: Appointment confirmed. Meeting at the Gulan Park VIP concierge desk."
+  },
+  {
+    "id": "viewing-erbil-italian-completed",
+    "property_title": "Italian Village Contemporary Villa",
+    "buyer_name": "Lord Henry Cavendish",
+    "agent_name": "Layla Hawrami",
+    "city": "Erbil",
+    "status": "completed",
+    "notes": "Viewing concluded successfully. Buyer architectural team inspected the roof deck and marble finishes. Follow-up meeting scheduled."
+  }
+]

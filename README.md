@@ -4,6 +4,29 @@ A high-performance, full-stack real estate viewing coordination platform built w
 
 ---
 
+## Architectural Portfolio & Seed Data Showcase
+
+Browse the full portfolio online with photography and specifications in [**PORTFOLIO.md**](./PORTFOLIO.md), or inspect the raw seed datasets:
+- 🏛️ [**seed-data/listings.json**](./seed-data/listings.json) — Full luxury residence catalog with coordinates, prices, and photos.
+- 👤 [**seed-data/agents.json**](./seed-data/agents.json) — Regional specialist agent roster and contact channels.
+- 📍 [**seed-data/viewings.json**](./seed-data/viewings.json) — Active viewing appointments with live GPS coordinates and communication notes.
+
+### Erbil & London Residence Preview
+
+| Residence | City | Price | Specs | Agent |
+| :--- | :--- | :--- | :--- | :--- |
+| **Empire World Royal Sky Penthouse** | Erbil | **$3,200,000 USD** | 4 Bed • 4.5 Bath • 420 sqm | Alan Barzani |
+| **Dream City Executive Palace** | Erbil | **$2,750,000 USD** | 5 Bed • 5.5 Bath • 550 sqm | Layla Hawrami |
+| **English Village Diplomatic Residence** | Erbil | **$1,850,000 USD** | 5 Bed • 4.0 Bath • 480 sqm | Alan Barzani |
+| **Italian Village Contemporary Villa** | Erbil | **$1,250,000 USD** | 4 Bed • 4.0 Bath • 380 sqm | Layla Hawrami |
+| **Gulan Park Panoramic Residence** | Erbil | **$2,100,000 USD** | 3 Bed • 3.5 Bath • 310 sqm | Alan Barzani |
+| **Ankawa Historic Courtyard Estate** | Erbil | **$1,650,000 USD** | 4 Bed • 3.5 Bath • 400 sqm | Layla Hawrami |
+| **The Penthouse at Eaton Square** | London | **£8,950,000 GBP** | 4 Bed • 4.5 Bath • 380 sqm | Sarah Jenkins |
+| **Cadogan Gardens Georgian Townhouse** | London | **£6,450,000 GBP** | 5 Bed • 4.0 Bath • 320 sqm | Sarah Jenkins |
+| **The Glasshouse Pavilion** | London | **£5,200,000 GBP** | 4 Bed • 3.5 Bath • 290 sqm | Marcus Vance |
+
+---
+
 ## Features
 
 ### 1. Customer & Buyer Experience

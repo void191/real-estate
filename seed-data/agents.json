@@ -1,0 +1,62 @@
+[
+  {
+    "name": "Alan Barzani",
+    "email": "alan.barzan@agency.com",
+    "role": "agent",
+    "region": "Erbil, Kurdistan Region, Iraq",
+    "phone": "+964 750 445 6789",
+    "portfolio": [
+      "Empire World Royal Sky Penthouse",
+      "English Village Diplomatic Residence",
+      "Gulan Park Panoramic Residence"
+    ],
+    "avatar_url": "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=400&auto=format&fit=crop&q=80"
+  },
+  {
+    "name": "Layla Hawrami",
+    "email": "layla.erbil@agency.com",
+    "role": "agent",
+    "region": "Erbil, Kurdistan Region, Iraq",
+    "phone": "+964 750 123 4567",
+    "portfolio": [
+      "Dream City Executive Palace",
+      "Italian Village Contemporary Villa",
+      "Ankawa Historic Courtyard Estate"
+    ],
+    "avatar_url": "https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?w=400&auto=format&fit=crop&q=80"
+  },
+  {
+    "name": "Sarah Jenkins",
+    "email": "sarah.jenkins@agency.com",
+    "role": "agent",
+    "region": "London, United Kingdom",
+    "phone": "+44 20 7946 0110",
+    "portfolio": [
+      "The Penthouse at Eaton Square",
+      "Cadogan Gardens Georgian Townhouse"
+    ],
+    "avatar_url": "https://images.unsplash.com/photo-1580489944761-15a19d654956?w=400&auto=format&fit=crop&q=80"
+  },
+  {
+    "name": "Marcus Vance",
+    "email": "marcus.vance@agency.com",
+    "role": "agent",
+    "region": "London, United Kingdom",
+    "phone": "+44 20 7946 0111",
+    "portfolio": [
+      "The Glasshouse Pavilion"
+    ],
+    "avatar_url": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&auto=format&fit=crop&q=80"
+  },
+  {
+    "name": "Eleanor Kensington",
+    "email": "admin@agency.com",
+    "role": "admin",
+    "region": "Global Operations",
+    "phone": "+44 20 7946 0001",
+    "portfolio": [
+      "Full Agency Governance & Reports"
+    ],
+    "avatar_url": "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=400&auto=format&fit=crop&q=80"
+  }
+]
