@@ -57,10 +57,10 @@ export async function GET(req: NextRequest) {
     });
 
     // Partition into the required queue columns: Requested | Accepted | En Route | Completed
-    const requested = viewings.filter((v) => v.status === ViewingStatus.requested);
-    const accepted = viewings.filter((v) => v.status === ViewingStatus.accepted);
-    const en_route = viewings.filter((v) => v.status === ViewingStatus.en_route || v.status === ViewingStatus.arrived);
-    const completed = viewings.filter((v) => v.status === ViewingStatus.completed || v.status === ViewingStatus.declined || v.status === ViewingStatus.cancelled);
+    const requested = viewings.filter((v: any) => v.status === ViewingStatus.requested);
+    const accepted = viewings.filter((v: any) => v.status === ViewingStatus.accepted);
+    const en_route = viewings.filter((v: any) => v.status === ViewingStatus.en_route || v.status === ViewingStatus.arrived);
+    const completed = viewings.filter((v: any) => v.status === ViewingStatus.completed || v.status === ViewingStatus.declined || v.status === ViewingStatus.cancelled);
 
     return NextResponse.json({
       all: viewings,

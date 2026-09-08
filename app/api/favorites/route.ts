@@ -29,7 +29,7 @@ export async function GET(req: NextRequest) {
       orderBy: { created_at: 'desc' },
     });
 
-    const listings = favorites.map((f) => ({
+    const listings = favorites.map((f: any) => ({
       ...f.listing,
       favorite_id: f.id,
       is_favorite: true,

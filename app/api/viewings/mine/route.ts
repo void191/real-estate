@@ -43,7 +43,7 @@ export async function GET(req: NextRequest) {
     const now = new Date();
 
     const upcoming = viewings.filter(
-      (v) =>
+      (v: any) =>
         v.status === ViewingStatus.requested ||
         v.status === ViewingStatus.accepted ||
         v.status === ViewingStatus.en_route ||
@@ -51,7 +51,7 @@ export async function GET(req: NextRequest) {
     );
 
     const past = viewings.filter(
-      (v) =>
+      (v: any) =>
         v.status === ViewingStatus.completed ||
         v.status === ViewingStatus.declined ||
         v.status === ViewingStatus.cancelled

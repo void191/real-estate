@@ -55,7 +55,7 @@ export async function GET(req: NextRequest) {
       },
     });
 
-    const formatted = listings.map((l) => ({
+    const formatted = listings.map((l: any) => ({
       ...l,
       is_favorite: currentUser ? l.favorites && l.favorites.length > 0 : false,
       favorites: undefined,

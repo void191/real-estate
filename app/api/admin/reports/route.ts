@@ -18,26 +18,26 @@ export async function GET(req: NextRequest) {
     });
 
     const totalViewings = allViewings.length;
-    const requestedCount = allViewings.filter((v) => v.status === ViewingStatus.requested).length;
-    const acceptedCount = allViewings.filter((v) => v.status === ViewingStatus.accepted).length;
-    const enRouteCount = allViewings.filter((v) => v.status === ViewingStatus.en_route).length;
-    const arrivedCount = allViewings.filter((v) => v.status === ViewingStatus.arrived).length;
-    const completedCount = allViewings.filter((v) => v.status === ViewingStatus.completed).length;
-    const declinedCount = allViewings.filter((v) => v.status === ViewingStatus.declined).length;
-    const cancelledCount = allViewings.filter((v) => v.status === ViewingStatus.cancelled).length;
+    const requestedCount = allViewings.filter((v: any) => v.status === ViewingStatus.requested).length;
+    const acceptedCount = allViewings.filter((v: any) => v.status === ViewingStatus.accepted).length;
+    const enRouteCount = allViewings.filter((v: any) => v.status === ViewingStatus.en_route).length;
+    const arrivedCount = allViewings.filter((v: any) => v.status === ViewingStatus.arrived).length;
+    const completedCount = allViewings.filter((v: any) => v.status === ViewingStatus.completed).length;
+    const declinedCount = allViewings.filter((v: any) => v.status === ViewingStatus.declined).length;
+    const cancelledCount = allViewings.filter((v: any) => v.status === ViewingStatus.cancelled).length;
 
     const completionRate = totalViewings > 0 ? Math.round((completedCount / totalViewings) * 100) : 0;
     const activePipelineCount = requestedCount + acceptedCount + enRouteCount + arrivedCount;
 
     // Response times by agent
     // For viewings that transitioned past 'requested', calculate duration between created_at and updated_at
-    const processedViewings = allViewings.filter((v) => v.status !== ViewingStatus.requested);
+    const processedViewings = allViewings.filter((v: any) => v.status !== ViewingStatus.requested);
     const agentResponseMap: Record<string, { totalMinutes: number; count: number; name: string }> = {};
 
-    processedViewings.forEach((v) => {
+    processedViewings.forEach((v: any) => {
       const diffMinutes = Math.max(
         1,
-        Math.round((v.updated_at.getTime() - v.created_at.getTime()) / (1000 * 60))
+        Math.round((new Date(v.updated_at).getTime() - new Date(v.created_at).getTime()) / (1000 * 60))
       );
       if (!agentResponseMap[v.agent_id]) {
         agentResponseMap[v.agent_id] = { totalMinutes: 0, count: 0, name: v.agent.name };
@@ -67,15 +67,15 @@ export async function GET(req: NextRequest) {
       orderBy: { favorites: { _count: 'desc' } },
     });
 
-    const listingPerformance = listings.map((l) => ({
+    const listingPerformance = listings.map((l: any) => ({
       id: l.id,
       title: l.title,
       address: l.address,
       price: l.price,
       status: l.status,
-      agent_name: l.agent.name,
-      favorite_count: l._count.favorites,
-      viewing_count: l._count.viewings,
+      agent_name: l.agent?.name || 'Unassigned',
+      favorite_count: l._count?.favorites || 0,
+      viewing_count: l._count?.viewings || 0,
     }));
 
     // 3. Agent Activity
@@ -94,11 +94,11 @@ export async function GET(req: NextRequest) {
       },
     });
 
-    const agentActivity = agents.map((a) => {
-      const totalAssigned = a._count.agent_viewings;
-      const completed = a.agent_viewings.filter((v) => v.status === ViewingStatus.completed).length;
-      const accepted = a.agent_viewings.filter((v) => v.status === ViewingStatus.accepted || v.status === ViewingStatus.en_route).length;
-      const declined = a.agent_viewings.filter((v) => v.status === ViewingStatus.declined).length;
+    const agentActivity = agents.map((a: any) => {
+      const totalAssigned = a._count?.agent_viewings || 0;
+      const completed = (a.agent_viewings || []).filter((v: any) => v.status === ViewingStatus.completed).length;
+      const accepted = (a.agent_viewings || []).filter((v: any) => v.status === ViewingStatus.accepted || v.status === ViewingStatus.en_route).length;
+      const declined = (a.agent_viewings || []).filter((v: any) => v.status === ViewingStatus.declined).length;
 
       return {
         id: a.id,

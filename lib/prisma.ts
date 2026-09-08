@@ -110,5 +110,5 @@ function createPrismaProxy() {
   });
 }
 
-export const prisma = globalForPrisma.prisma ?? createPrismaProxy();
+export const prisma: PrismaClient = (globalForPrisma.prisma ?? createPrismaProxy()) as unknown as PrismaClient;
 if (process.env.NODE_ENV !== 'production') globalForPrisma.prisma = prisma;
