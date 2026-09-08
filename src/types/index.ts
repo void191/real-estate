@@ -17,6 +17,8 @@ export interface User {
   email: string;
   role: Role;
   phone: string | null;
+  whatsapp?: string;
+  telegram?: string;
   avatar_url: string | null;
   is_active: boolean;
 }

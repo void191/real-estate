@@ -17,6 +17,7 @@ import {
   AlertTriangle,
 } from 'lucide-react';
 import { format } from 'date-fns';
+import { ContactButtons } from './ContactButtons';
 
 export const AgentQueue: React.FC = () => {
   const { currentUser, viewings, listings, users, updateViewingStatus } = useAppStore();
@@ -143,23 +144,13 @@ export const AgentQueue: React.FC = () => {
                   </div>
 
                   {buyer && (
-                    <div className="flex gap-2 text-[11px] text-muted">
-                      {buyer.phone && (
-                        <a
-                          href={`tel:${buyer.phone}`}
-                          className="hover:text-ink flex items-center gap-0.5"
-                        >
-                          <Phone className="w-3 h-3 text-brass" /> Call
-                        </a>
-                      )}
-                      {buyer.email && (
-                        <a
-                          href={`mailto:${buyer.email}`}
-                          className="hover:text-ink flex items-center gap-0.5"
-                        >
-                          <Mail className="w-3 h-3 text-brass" /> Email
-                        </a>
-                      )}
+                    <div className="pt-1 flex items-center justify-between">
+                      <span className="text-[11px] text-muted font-mono">Direct Contact:</span>
+                      <ContactButtons
+                        user={buyer}
+                        inquiryText={`Hello ${buyer.name}, this is your viewing coordinator regarding your request for ${listing.title}.`}
+                        size="sm"
+                      />
                     </div>
                   )}
 
@@ -249,6 +240,17 @@ export const AgentQueue: React.FC = () => {
                     </span>
                   </div>
 
+                  {buyer && (
+                    <div className="pt-1 flex items-center justify-between">
+                      <span className="text-[11px] text-muted font-mono">Direct Contact:</span>
+                      <ContactButtons
+                        user={buyer}
+                        inquiryText={`Hello ${buyer.name}, confirming our upcoming viewing for ${listing.title}. Let me know if you need directions!`}
+                        size="sm"
+                      />
+                    </div>
+                  )}
+
                   <div className="text-[11px] text-muted flex items-center gap-1">
                     <Clock className="w-3.5 h-3.5 text-amber-500" />
                     Waiting for buyer to press "I'm on my way"
@@ -317,6 +319,20 @@ export const AgentQueue: React.FC = () => {
                     >
                       {isArrived ? 'ARRIVED' : 'IN TRANSIT'}
                     </span>
+                  </div>
+
+                  <div className="flex items-center justify-between text-xs text-stone-700 pt-1 border-t border-stone-100">
+                    <span className="flex items-center gap-1 font-semibold">
+                      <UserIcon className="w-3.5 h-3.5 text-brass" />
+                      {buyer?.name || 'Client'}
+                    </span>
+                    {buyer && (
+                      <ContactButtons
+                        user={buyer}
+                        inquiryText={`Hello ${buyer.name}, seeing you are en route to ${listing.title}. See you shortly!`}
+                        size="sm"
+                      />
+                    )}
                   </div>
 
                   {/* HUD Distance & ETA */}

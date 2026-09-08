@@ -15,6 +15,7 @@ import {
   Building,
 } from 'lucide-react';
 import { format } from 'date-fns';
+import { ContactButtons } from './ContactButtons';
 
 export const MyViewings: React.FC = () => {
   const { currentUser, viewings, listings, users, updateViewingStatus } = useAppStore();
@@ -169,23 +170,12 @@ export const MyViewings: React.FC = () => {
                   )}
 
                   {agent && (
-                    <div className="flex items-center space-x-2 self-center md:justify-end">
-                      {agent.phone && (
-                        <a
-                          href={`tel:${agent.phone}`}
-                          className="px-3 py-1.5 rounded-lg bg-stone-100 hover:bg-stone-200 text-ink flex items-center gap-1 font-mono transition"
-                        >
-                          <Phone className="w-3.5 h-3.5 text-brass" /> Call
-                        </a>
-                      )}
-                      {agent.email && (
-                        <a
-                          href={`mailto:${agent.email}`}
-                          className="px-3 py-1.5 rounded-lg bg-stone-100 hover:bg-stone-200 text-ink flex items-center gap-1 font-mono transition"
-                        >
-                          <Mail className="w-3.5 h-3.5 text-brass" /> Email
-                        </a>
-                      )}
+                    <div className="flex items-center self-center md:justify-end">
+                      <ContactButtons
+                        user={agent}
+                        inquiryText={`Hello ${agent.name}, regarding my scheduled viewing for ${listing.title}...`}
+                        size="sm"
+                      />
                     </div>
                   )}
                 </div>

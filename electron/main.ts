@@ -90,17 +90,27 @@ async function createWindow() {
   const menu = Menu.buildFromTemplate(menuTemplate);
   Menu.setApplicationMenu(menu);
 
-  // Intercept external links (tel:, mailto:, external web) to open in native handler
+  // Intercept external links (WhatsApp, Telegram, web, tel:, mailto:) to open in native handler
   mainWindow.webContents.setWindowOpenHandler(({ url }) => {
     if (
       url.startsWith('http://') ||
       url.startsWith('https://') ||
+      url.startsWith('whatsapp:') ||
+      url.startsWith('tg:') ||
       url.startsWith('mailto:') ||
       url.startsWith('tel:')
     ) {
       shell.openExternal(url);
     }
     return { action: 'deny' };
+  });
+
+  // Guard in-page navigations from leaving the local application
+  mainWindow.webContents.on('will-navigate', (event, url) => {
+    if (!url.startsWith('file://')) {
+      event.preventDefault();
+      shell.openExternal(url);
+    }
   });
 
   mainWindow.once('ready-to-show', () => {

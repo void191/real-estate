@@ -17,6 +17,7 @@ import {
   ChevronLeft,
   ChevronRight,
 } from 'lucide-react';
+import { ContactButtons } from './ContactButtons';
 
 interface PropertyModalProps {
   listing: Listing | null;
@@ -228,25 +229,11 @@ export const PropertyModal: React.FC<PropertyModalProps> = ({
                   </div>
                 </div>
 
-                <div className="flex items-center space-x-2">
-                  {agent.phone && (
-                    <a
-                      href={`tel:${agent.phone}`}
-                      className="p-2.5 rounded-lg bg-paper hover:bg-stone-200 text-ink border border-stone-300 transition"
-                      title="Call broker"
-                    >
-                      <Phone className="w-4 h-4 text-brass" />
-                    </a>
-                  )}
-                  {agent.email && (
-                    <a
-                      href={`mailto:${agent.email}`}
-                      className="p-2.5 rounded-lg bg-paper hover:bg-stone-200 text-ink border border-stone-300 transition"
-                      title="Email broker"
-                    >
-                      <Mail className="w-4 h-4 text-brass" />
-                    </a>
-                  )}
+                <div className="flex items-center">
+                  <ContactButtons
+                    user={agent}
+                    inquiryText={`Hello ${agent.name}, I am inquiring about ${listing.title}.`}
+                  />
                 </div>
               </div>
             )}
