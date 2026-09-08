@@ -1,14 +1,12 @@
-import { app, BrowserWindow, Menu, shell } from 'electron';
+import { app, BrowserWindow, Menu, shell, dialog } from 'electron';
 import path from 'path';
-import { startAppServer, RunningServer } from './server-runner';
 
 let mainWindow: BrowserWindow | null = null;
-let serverInstance: RunningServer | null = null;
 
 // Enforce single application instance
 const hasSingleInstanceLock = app.requestSingleInstanceLock();
 if (!hasSingleInstanceLock) {
-  console.log('Another instance is already running. Exiting...');
+  console.log('Another instance is already active. Exiting...');
   app.quit();
 } else {
   app.on('second-instance', () => {
@@ -19,20 +17,20 @@ if (!hasSingleInstanceLock) {
   });
 }
 
-async function createWindow(serverPort: number) {
+async function createWindow() {
   const isDev = !app.isPackaged;
   const appPath = app.getAppPath();
   const iconPath = path.join(appPath, 'resources', 'icon.ico');
 
   mainWindow = new BrowserWindow({
-    width: 1320,
-    height: 880,
+    width: 1340,
+    height: 890,
     minWidth: 980,
     minHeight: 640,
     title: 'Real Estate Viewing Coordinator',
     icon: iconPath,
     backgroundColor: '#FCFAF8',
-    show: false, // Show once ready to avoid white flash
+    show: false,
     webPreferences: {
       preload: path.join(__dirname, 'preload.js'),
       nodeIntegration: false,
@@ -41,70 +39,33 @@ async function createWindow(serverPort: number) {
     },
   });
 
-  const appUrl = `http://127.0.0.1:${serverPort}`;
-
-  // Custom Application Menu
+  // Native Menu
   const menuTemplate: any[] = [
     {
-      label: 'Navigation',
-      submenu: [
-        {
-          label: 'Property Feed (Customer)',
-          accelerator: 'CmdOrCtrl+1',
-          click: () => mainWindow?.loadURL(appUrl),
-        },
-        {
-          label: 'My Viewings',
-          accelerator: 'CmdOrCtrl+2',
-          click: () => mainWindow?.loadURL(`${appUrl}/viewings`),
-        },
-        {
-          label: 'Saved Residences',
-          accelerator: 'CmdOrCtrl+3',
-          click: () => mainWindow?.loadURL(`${appUrl}/favorites`),
-        },
-        { type: 'separator' },
-        {
-          label: 'Agent Queue',
-          accelerator: 'CmdOrCtrl+4',
-          click: () => mainWindow?.loadURL(`${appUrl}/agent/queue`),
-        },
-        {
-          label: 'Admin Operations',
-          accelerator: 'CmdOrCtrl+5',
-          click: () => mainWindow?.loadURL(`${appUrl}/admin`),
-        },
-        { type: 'separator' },
-        {
-          label: 'Quit',
-          accelerator: 'CmdOrCtrl+Q',
-          click: () => app.quit(),
-        },
-      ],
-    },
-    {
-      label: 'View',
+      label: 'Application',
       submenu: [
         { role: 'reload', accelerator: 'CmdOrCtrl+R' },
         { role: 'forceReload', accelerator: 'CmdOrCtrl+Shift+R' },
         { type: 'separator' },
-        { role: 'resetZoom' },
-        { role: 'zoomIn' },
-        { role: 'zoomOut' },
+        { role: 'zoomIn', accelerator: 'CmdOrCtrl+=' },
+        { role: 'zoomOut', accelerator: 'CmdOrCtrl+-' },
+        { role: 'resetZoom', accelerator: 'CmdOrCtrl+0' },
         { type: 'separator' },
-        { role: 'togglefullscreen' },
+        { role: 'togglefullscreen', accelerator: 'F11' },
         {
           label: 'Toggle Developer Tools',
           accelerator: 'F12',
           click: () => mainWindow?.webContents.toggleDevTools(),
         },
+        { type: 'separator' },
+        { role: 'quit', accelerator: 'CmdOrCtrl+Q' },
       ],
     },
     {
       label: 'Help',
       submenu: [
         {
-          label: 'Real Estate Coordinator Documentation',
+          label: 'Online Project Repository',
           click: async () => {
             await shell.openExternal('https://github.com/void191/real-estate');
           },
@@ -112,13 +73,12 @@ async function createWindow(serverPort: number) {
         {
           label: 'About Real Estate Viewing Coordinator',
           click: () => {
-            const { dialog } = require('electron');
             dialog.showMessageBox(mainWindow!, {
               type: 'info',
               title: 'Real Estate Viewing Coordinator',
               message: 'Real Estate Viewing Coordinator Desktop v1.0.0',
               detail:
-                'Luxury Property Feed, Real-time GPS Location Radar, 4-Column Agent Queue, and Agency Governance.\n\nCrafted with Next.js 14, Electron, Socket.io, Leaflet, and Prisma.',
+                'Luxury Real Estate Portfolio, Live GPS Radar, 4-Column Agent Queue, and Agency Governance.\n\nErbil & London Residences.',
               buttons: ['OK'],
             });
           },
@@ -130,9 +90,14 @@ async function createWindow(serverPort: number) {
   const menu = Menu.buildFromTemplate(menuTemplate);
   Menu.setApplicationMenu(menu);
 
-  // Open external web links in system browser
+  // Intercept external links (tel:, mailto:, external web) to open in native handler
   mainWindow.webContents.setWindowOpenHandler(({ url }) => {
-    if (url.startsWith('http://') || url.startsWith('https://')) {
+    if (
+      url.startsWith('http://') ||
+      url.startsWith('https://') ||
+      url.startsWith('mailto:') ||
+      url.startsWith('tel:')
+    ) {
       shell.openExternal(url);
     }
     return { action: 'deny' };
@@ -142,7 +107,10 @@ async function createWindow(serverPort: number) {
     mainWindow?.show();
   });
 
-  await mainWindow.loadURL(appUrl);
+  // Load the compiled static Vite bundle directly from disk
+  const indexPath = path.join(appPath, 'dist', 'index.html');
+  console.log('Loading desktop bundle from:', indexPath);
+  await mainWindow.loadFile(indexPath);
 
   if (isDev && process.env.OPEN_DEVTOOLS === 'true') {
     mainWindow.webContents.openDevTools();
@@ -153,35 +121,16 @@ async function createWindow(serverPort: number) {
   });
 }
 
-async function startApplication() {
-  const isDev = !app.isPackaged;
-  const projectDir = app.getAppPath();
+app.whenReady().then(createWindow);
 
-  console.log('Initializing embedded Next.js & Socket.io server in Electron...');
-  try {
-    serverInstance = await startAppServer(3000, isDev, projectDir);
-    await createWindow(serverInstance.port);
-  } catch (err) {
-    console.error('Failed to initialize desktop application server:', err);
-    app.quit();
-  }
-}
-
-app.whenReady().then(startApplication);
-
-app.on('window-all-closed', async () => {
-  if (serverInstance) {
-    await serverInstance.stop();
-    serverInstance = null;
-  }
+app.on('window-all-closed', () => {
   if (process.platform !== 'darwin') {
     app.quit();
   }
 });
 
-app.on('before-quit', async () => {
-  if (serverInstance) {
-    await serverInstance.stop();
-    serverInstance = null;
+app.on('activate', () => {
+  if (BrowserWindow.getAllWindows().length === 0) {
+    createWindow();
   }
 });

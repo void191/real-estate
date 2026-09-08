@@ -1,36 +1,47 @@
-import type { Config } from "tailwindcss";
+import type { Config } from 'tailwindcss';
 
 const config: Config = {
   content: [
-    "./pages/**/*.{js,ts,jsx,tsx,mdx}",
-    "./components/**/*.{js,ts,jsx,tsx,mdx}",
-    "./app/**/*.{js,ts,jsx,tsx,mdx}",
+    './index.html',
+    './src/**/*.{js,ts,jsx,tsx}',
+    './components/**/*.{js,ts,jsx,tsx}',
+    './app/**/*.{js,ts,jsx,tsx}',
   ],
   theme: {
     extend: {
       colors: {
-        ink: "#1E2A32",
+        ink: '#1E2A32',
+        paper: '#FCFAF8',
+        white: '#FCFAF8',
         stone: {
-          DEFAULT: "#E9E4D8",
-          dim: "#DCD5C4",
+          DEFAULT: '#E9E4D8',
+          dim: '#DCD5C4',
+          light: '#F5F2EB',
         },
-        brass: "#B08D45",
-        live: "#3E7C59",
-        muted: "#7C7566",
-        white: "#FCFAF8",
+        brass: {
+          DEFAULT: '#B08D45',
+          hover: '#C29D52',
+          light: '#D4AF37',
+        },
+        live: {
+          DEFAULT: '#3E7C59',
+          light: '#4E986F',
+        },
+        muted: '#7C7566',
       },
       fontFamily: {
-        headline: ["var(--font-fraunces)", "serif"],
-        serif: ["var(--font-fraunces)", "serif"],
-        sans: ["var(--font-inter)", "sans-serif"],
-        mono: ["var(--font-jetbrains)", "monospace"],
+        headline: ["'Fraunces'", 'Georgia', 'serif'],
+        serif: ["'Fraunces'", 'Georgia', 'serif'],
+        sans: ["'Plus Jakarta Sans'", 'system-ui', 'sans-serif'],
+        mono: ["'JetBrains Mono'", 'Courier New', 'monospace'],
       },
       animation: {
-        "pulse-slow": "pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite",
-        "ping-slow": "ping 2s cubic-bezier(0, 0, 0.2, 1) infinite",
+        'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+        'ping-slow': 'ping 2s cubic-bezier(0, 0, 0.2, 1) infinite',
       },
     },
   },
   plugins: [],
 };
+
 export default config;

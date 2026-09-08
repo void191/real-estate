@@ -1,6 +1,6 @@
 appId: com.realestate.viewingcoordinator
 productName: Real Estate Viewing Coordinator
-copyright: Copyright © 2026
+copyright: Copyright © 2026 Estate Coordinator Team
 
 directories:
   output: release
@@ -20,18 +20,12 @@ nsis:
   createStartMenuShortcut: true
   shortcutName: Real Estate Viewing Coordinator
   uninstallDisplayName: Real Estate Viewing Coordinator
+  differentialPackage: false
 
 files:
+  - "dist/**/*"
   - "dist-electron/**/*"
-  - ".next/**/*"
-  - "public/**/*"
   - "resources/**/*"
-  - "seed-data/**/*"
   - "package.json"
-  - "prisma/schema.prisma"
-  - "!**/*.ts"
-  - "!scripts/**/*"
 
 asar: true
-asarUnpack:
-  - "**/*.node"
